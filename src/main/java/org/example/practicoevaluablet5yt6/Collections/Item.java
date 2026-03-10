@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Item {
     @Id
     private String _id;
-    private String id;
     private String title;
     private Double price;
     private String category;
@@ -22,15 +21,13 @@ public class Item {
     public Item() {
     }
 
-    public Item(String _id, String id, String category) {
+    public Item(String _id, String category) {
         this._id = _id;
-
         this.category = category;
     }
 
-    public Item(String _id, String id, String title, Double price, String category, String description, double rate, int count, String color, String manufacturer, int ean, String image) {
+    public Item(String _id, String title, Double price, String category, String description, double rate, int count, String color, String manufacturer, int ean, String image) {
         this._id = _id;
-        this.id = id;
         this.title = title;
         this.price = price;
         this.category = category;
@@ -41,14 +38,6 @@ public class Item {
         this.manufacturer = manufacturer;
         this.ean = ean;
         this.image = image;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String get_id() {

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -59,6 +60,7 @@ public class ItemController {
         stats.put("numero de items", repo.count());
         stats.put("items con un valor de stock menor a " + stock, repo.findByCountLessThan(stock));
         List<String> manufacturers = repo.findAllManufacturers().stream()
+                .filter(Objects::nonNull)
                 .map(Item::getManufacturer)
                 .distinct()
                 .collect(Collectors.toList());

@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -46,18 +48,26 @@ public class SecurityConfig {
     }
 
     /**
+     * Define un bean para el codificador de contraseñas.
+     *
+     * @return una instancia de {@link BCryptPasswordEncoder}.
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
      * Define un {@link UserDetailsService} que provee un usuario en memoria para la autenticación.
      * Este es un método simple para desarrollo y pruebas. En producción, se debería usar una base de datos.
      *
      * @return un {@link InMemoryUserDetailsManager} con un usuario 'admin'.
      */
     @Bean
-    public UserDetailsService users() {
-        // Crea un usuario 'admin' con contraseña 'admin' y rol 'ADMIN'.
-        // User.withDefaultPasswordEncoder() es inseguro para producción.
-        UserDetails admin = User.withDefaultPasswordEncoder()
+    public UserDetailsService users(PasswordEncoder passwordEncoder) {
+        UserDetails admin = User.builder()
                 .username("admin")
-                .password("admin")
+                .password(passwordEncoder.encode("admin"))
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(admin);
