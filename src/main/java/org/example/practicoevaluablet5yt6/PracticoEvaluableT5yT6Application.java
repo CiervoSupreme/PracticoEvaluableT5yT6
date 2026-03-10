@@ -1,12 +1,12 @@
-package org.example.reto4;
+package org.example.practicoevaluablet5yt6;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Reto4Application {
+public class PracticoEvaluableT5yT6Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Reto4Application.class, args);
+        SpringApplication.run(PracticoEvaluableT5yT6Application.class, args);
     }
 }
